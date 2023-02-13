@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Licoreria CZ - Punto de Venta</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        label,
+        input[type="text"],
+        select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="date"],
+        input[type="number"] {
+            width: 150px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            width: 150px;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #dddddd;
+        }
+
+        .payment-info {
+            margin-top: 50px;
+        }
+
+        .company-info {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Nombre de la licorería -->
+    <div class="container">
+        <h1>Licoreria CZ</h1>
+    </div>
+
+    <!-- Información de la compra -->
+    <label for="fecha">Fecha de Compra:</label>
+    <input type="date" id="fecha" name="fecha">
+
+    <!-- Tabla de compra -->
+    <table>
+        <tr>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Total</th>
+        </tr>
+        <tr>
+            <td><input type="text" id="descripcón"></td>
+            <td><input type="number" id="cantidad"></td>
+            <td><input type="number" id="precio"></td>
+            <td><input type="number" id="total"></td>
+        </tr>
+    </table>
+
+    <!-- Botón de agregar -->
+    <button onclick="agregar()">Agregar</button>
+    <!-- Espacio para el resultado -->
+    <p id="resultado"></p>
+
+     <!-- Subtotal, impuestos y total -->
+     <div id="total-info">
+        <p><strong>Subtotal:</strong> $<span id="subtotal">0</span></p>
+        <p><strong>Impuestos (12%):</strong> $<span id="tax">0</span></p>
+        <p><strong>Total:</strong> $<span id="total">0</span></p>
+    </div>
+    </div>
+    <!-- Botón de total -->
+    <button onclick="calcularTotal()">Total</button>
+    </div>
+    <!-- Información de pago -->
+    <div class="payment-info">
+        <h3>Información de Pago</h3>
+        <label for="nombreComprador">Nombre del Comprador:</label>
+        <input type="text" id="nombreComprador" name="nombreComprador"><br><br>
+        <label for="cedula">Cédula Ecuatoriana:</label>
+        <input type="text" id="cedula" name="cedula"><br><br>
+        <label for="celular">Celular:</label>
+        <input type="text" id="celular" name="celular"><br><br>
+        <div class="form-group">
+            <label for="payment-method">Método de pago</label>
+            <select id="payment-method" name="payment-method" required>
+                <option value="">Selecciona un método</option>
+                <option value="cash">Efectivo</option>
+                <option value="card">Tarjeta de crédito/débito</option>
+                <option value="check">Cheque</option>
+                <option value="transfer">Transferencia bancaria</option>
+            </select>
+        </div>
+        <button type="submit"><a href="xdxd.html">REALIZAR FACTURA</a></button>
+        
+        </form>
+    </div>
+    </div>
+    <!-- Información de la empresa -->
+    <div class="company-info">
+        <p>AVENIDA URBINA, Y, Portoviejo 130105, Licoreria CZ</p>
+        <p>www.licoreriacz.com</p>
+        <p>(05) 370-1960</p>
+    </div>
+    <!-- Script -->
+    <script>
+        function agregar() {
+            //Obtener los valores de los inputs
+            var descripción = document.getElementById("descripción").value;
+            var cantidad = document.getElementById("cantidad").value;
+            var precio = document.getElementById("precio").value;
+
+            //Crear una fila en la tabla
+            var fila = document.createElement("tr");
+
+            //Crear las celdas de la fila
+            var celdaDescripción = document.createElement("td");
+            var celdaCantidad = document.createElement("td");
+            var celdaPrecio = document.createElement("td");
+            var celdaTotal = document.createElement("td");
+
+            //Agregar los valores a las celdas
+            celdaDescripción.innerHTML = descripción;
+            celdaCantidad.innerHTML = cantidad;
+            celdaPrecio.innerHTML = precio;
+            celdaTotal.innerHTML = cantidad * precio;
+
+            //Agregar las celdas a la fila
+            fila.appendChild(celdaDescripción);
+            fila.appendChild(celdaCantidad);
+            fila.appendChild(celdaPrecio);
+            fila.appendChild(celdaTotal);
+
+            //Agregar la fila a la tabla
+            var tabla = document.getElementsByTagName("table")[0];
+            tabla.appendChild(fila);
+
+            //Limpiar los valores de los inputs
+            document.getElementById("descripción").value = "";
+            document.getElementById("cantidad").value = "";
+            document.getElementById("precio").value = "";
+        }
+
+        function calcularTotal() {
+            //Obtener todas las filas de la tabla
+            var filas = document.getElementsByTagName("tr");
+
+            //Variable para almacenar el total
+            var total = 0;
+
+            //Recorrer todas las filas
+            for (var i = 1; i < filas.length; i++) {
+                //Obtener la última celda de cada fila
+                var celdaTotal = filas[i].getElementsByTagName("td")[3];
+
+                //Agregar el valor de la celda al total
+                total += parseFloat(celdaTotal.innerHTML);
+            }
+            //Mostrar el total en el elemento con id "total"
+            document.getElementById("total").innerHTML = total;
+        }
+
+
+        //Llamar a la función al cargar la página
+        window.onload = function () {
+            actualizarTotal();
+        }
+
+        //Llamar a la función cada vez que se modifique un valor en el formulario
+        document.getElementById("compra").addEventListener("input", actualizarTotal);
+
+        //Imprimir el total en la tabla
+        document.getElementById("total").innerHTML = total.toFixed(2);
+
+    </script>
+
+</body>
+
+</html>
+
+
+
